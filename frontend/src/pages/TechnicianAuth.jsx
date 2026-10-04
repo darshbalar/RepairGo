@@ -1109,7 +1109,7 @@ function TechnicianAuth() {
       try {
         const response =
           await fetch(
-            "http://localhost:5000/api/auth/send-otp",
+            "https://repairgo-h1wz.onrender.com/api/auth/send-otp",
             {
               method: "POST",
 
@@ -1169,7 +1169,7 @@ function TechnicianAuth() {
 
   try {
     const response = await fetch(
-      "http://localhost:5000/api/auth/send-otp",
+      "https://repairgo-h1wz.onrender.com/api/auth/send-otp",
       {
         method: "POST",
         headers: {
@@ -1232,7 +1232,7 @@ function TechnicianAuth() {
       try {
         const response =
           await fetch(
-            "http://localhost:5000/api/auth/technician-signup",
+            "https://repairgo-h1wz.onrender.com/api/auth/technician-signup",
             {
               method: "POST",
 
