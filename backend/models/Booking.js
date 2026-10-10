@@ -23,7 +23,6 @@ const bookingServiceSchema = new mongoose.Schema(
       min: 1,
     },
 
-    // Category is required for technician matching
     category: {
       type: String,
       enum: [
@@ -32,6 +31,10 @@ const bookingServiceSchema = new mongoose.Schema(
         "ac_repair",
         "appliance_repair",
         "carpenter",
+        "ro_service",
+        "tv_repair",
+        "washing_machine",
+        "home_cleaning",
       ],
       required: true,
     },
@@ -41,21 +44,18 @@ const bookingServiceSchema = new mongoose.Schema(
 
 const bookingSchema = new mongoose.Schema(
   {
-    // Customer who created the booking
     customerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
 
-    // Technician who accepted the booking
     technicianId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       default: null,
     },
 
-    // Services selected by customer
     services: {
       type: [bookingServiceSchema],
       required: true,
@@ -98,7 +98,6 @@ const bookingSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    // Customer service address
     serviceAddress: {
       name: {
         type: String,
@@ -131,13 +130,7 @@ const bookingSchema = new mongoose.Schema(
       },
     },
 
-    /*
-      Technicians who declined this request.
-
-      Important:
-      If Technician A declines, the booking should still
-      remain available for Technician B, C, D...
-    */
+    // Technicians who declined this particular request
     declinedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -145,15 +138,6 @@ const bookingSchema = new mongoose.Schema(
       },
     ],
 
-    /*
-      Booking status.
-
-      pending   = waiting for technician
-      accepted  = technician accepted
-      declined  = final/global decline if needed
-      completed = service completed
-      cancelled = booking cancelled
-    */
     status: {
       type: String,
       enum: [
